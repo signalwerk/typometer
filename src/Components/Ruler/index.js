@@ -4,7 +4,12 @@ import Scale from "../Scale";
 import Circle from "../Circle";
 import Triangle from "../Triangle";
 
+const TextToSVG = require("text-to-svg");
+
 // view
+
+const DTP_PT = 25.4 / 72; // .352777778
+// const Scaler = 1/DTP_PT; // export to illu
 const Scaler = 10;
 
 // Scale mm
@@ -33,10 +38,10 @@ const RulerWidth = 350;
 const ArtBleed = 0;
 const MediaBleed = 10;
 
-const Text_PT_OFFSET_Y = 5.6;
+const Text_PT_OFFSET_Y = 5.7;
 
-const Text_MM_OFFSET_X = -0.6;
-const Text_MM_OFFSET_Y = 3.3;
+const Text_MM_OFFSET_X = -0.5;
+const Text_MM_OFFSET_Y = 3.25;
 
 const googleFonts =
   "https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700,800,900";
@@ -47,15 +52,33 @@ const style = {
 };
 
 class Ruler extends Component {
+  state = {
+    textToSVG: null
+  };
+  componentDidMount(props) {
+    TextToSVG.load("./WorkSans/WorkSans-Medium.ttf", (err, textToSVG) => {
+      this.setState({ textToSVG });
+    });
+  }
+
   render() {
     const totalWidth = RulerWidth + 2 * MediaBleed;
     const totalHeight = RulerHeight + 2 * MediaBleed;
+    let textToSVG = this.state.textToSVG;
 
     return (
       <div className="Ruler">
         <svg width={totalWidth * Scaler} height={totalHeight * Scaler}>
           <defs>
-            <style type="text/css">{`@import url(${googleFonts});`}</style>
+            <style type="text/css">{`
+                @import url(${googleFonts});
+
+                .text {
+                  font-family: ${style.fontFamily};
+                  font-weight: ${style.fontWeight};
+                  font-style: normal;
+                }
+                `}</style>
           </defs>
 
           <g transform={`scale(${Scaler})`}>
@@ -67,7 +90,6 @@ class Ruler extends Component {
                 height={totalHeight}
                 fill="yellow"
               />
-
               <rect
                 x="0"
                 y="0"
@@ -83,14 +105,13 @@ class Ruler extends Component {
                 fill="white"
               />
 
-              {/* 2pt */}
+              {/* 12pt */}
               <Lines
                 y={0 - ArtBleed}
-                distance={pt(2)}
-                count={SCALE_PT_COUNT / 2}
-                length={Scale_2_PT_Height + ArtBleed}
+                distance={pt(12)}
+                count={SCALE_PT_COUNT / 12 + 1}
+                length={Scale_12_PT_Height + ArtBleed}
                 strokeWidth={Scale_MM_stroke_width}
-                modulo={[6]}
               />
 
               {/* 6pt */}
@@ -103,26 +124,23 @@ class Ruler extends Component {
                 modulo={[2]}
               />
 
-              {/* 12pt */}
+              {/* 2pt */}
               <Lines
                 y={0 - ArtBleed}
-                distance={pt(12)}
-                count={SCALE_PT_COUNT / 12 + 1}
-                length={Scale_12_PT_Height + ArtBleed}
+                distance={pt(2)}
+                count={SCALE_PT_COUNT / 2}
+                length={Scale_2_PT_Height + ArtBleed}
                 strokeWidth={Scale_MM_stroke_width}
+                modulo={[3]}
               />
-
               <Scale
+                textToSVG={textToSVG}
                 y={Text_PT_OFFSET_Y}
                 distance={pt(12)}
                 count={SCALE_CICERO_COUNT + 1}
                 label={index => (index > 0 ? index : "")}
-                style={{
-                  fontSize: style.fontSize,
-                  fontFamily: style.fontFamily,
-                  fontWeight: style.fontWeight,
-                  fontStyle: "normal"
-                }}
+                fontSize={style.fontSize}
+                className={"text"}
               />
 
               {/* CICERO */}
@@ -144,25 +162,22 @@ class Ruler extends Component {
               />
 
               <Scale
+                textToSVG={textToSVG}
                 y={RulerHeight / 2 + 0.65}
                 distance={pt(12 * 4)}
                 count={SCALE_CICERO_COUNT / 4 + 1}
                 fill={"white"}
-                style={{
-                  fontSize: style.fontSize * 0.75,
-                  fontFamily: style.fontFamily,
-                  fontWeight: style.fontWeight,
-                  fontStyle: "normal"
-                }}
+                fontSize={style.fontSize * 0.75}
+                className={"text"}
               />
 
-              {/* mm */}
+              {/* 10mm */}
               <Lines
                 y={RulerHeight + ArtBleed}
-                count={SCALE_MM_COUNT}
-                length={0 - (Scale_1_MM_Height + ArtBleed)}
+                distance={10}
+                count={SCALE_MM_COUNT / 10 + 1}
+                length={0 - (Scale_10_MM_Height + ArtBleed)}
                 strokeWidth={Scale_MM_stroke_width}
-                modulo={[5]}
               />
 
               {/* 5mm */}
@@ -175,57 +190,46 @@ class Ruler extends Component {
                 modulo={[2]}
               />
 
-              {/* 10mm */}
+              {/* mm */}
               <Lines
                 y={RulerHeight + ArtBleed}
-                distance={10}
-                count={SCALE_MM_COUNT / 10 + 1}
-                length={0 - (Scale_10_MM_Height + ArtBleed)}
+                count={SCALE_MM_COUNT}
+                length={0 - (Scale_1_MM_Height + ArtBleed)}
                 strokeWidth={Scale_MM_stroke_width}
+                modulo={[5]}
               />
-
               <Scale
+                textToSVG={textToSVG}
                 x={Text_MM_OFFSET_X}
                 y={RulerHeight - Text_MM_OFFSET_Y}
-                textAnchor="end"
+                anchor="right baseline"
                 distance={10}
                 count={SCALE_MM_COUNT / 10 + 1}
                 filter={index => index === 0}
                 label={index => {
                   return index < 10 ? index : `${parseInt(index / 10)}`;
                 }}
-                style={{
-                  fontSize: style.fontSize,
-                  fontFamily: style.fontFamily,
-                  fontWeight: style.fontWeight,
-                  fontStyle: "normal"
-                }}
+                fontSize={style.fontSize}
+                className={"text"}
               />
               <Scale
+                textToSVG={textToSVG}
                 x={0 - Text_MM_OFFSET_X}
                 y={RulerHeight - Text_MM_OFFSET_Y}
-                textAnchor="start"
+                anchor="left baseline"
                 distance={10}
                 count={SCALE_MM_COUNT / 10 + 1}
                 filter={index => index === 0}
                 label={index => {
                   return index < 10 ? "" : `${index % 10}`;
                 }}
-                style={{
-                  fontSize: style.fontSize,
-                  fontFamily: style.fontFamily,
-                  fontWeight: style.fontWeight,
-                  fontStyle: "normal"
-                }}
+                fontSize={style.fontSize}
+                className={"text"}
               />
 
               <text
-                style={{
-                  fontSize: style.fontSize,
-                  fontFamily: style.fontFamily,
-                  fontWeight: style.fontWeight,
-                  fontStyle: "normal"
-                }}
+                fontSize={style.fontSize}
+                className={"text"}
                 text-anchor="middle"
                 x="10"
                 y="23"
@@ -234,12 +238,8 @@ class Ruler extends Component {
               </text>
 
               <text
-                style={{
-                  fontSize: style.fontSize,
-                  fontFamily: style.fontFamily,
-                  fontWeight: style.fontWeight,
-                  fontStyle: "normal"
-                }}
+                fontSize={style.fontSize}
+                className={"text"}
                 text-anchor="end"
                 x="20"
                 y="23"
@@ -251,8 +251,8 @@ class Ruler extends Component {
                 <Triangle
                   direction="down"
                   x={item}
-                  y={RulerHeight - Scale_1_MM_Height - 0.2}
-                  size={1.3}
+                  y={RulerHeight - Scale_1_MM_Height - 0.3}
+                  size={1}
                 />
               ))}
             </g>

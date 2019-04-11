@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from "react";
 
+// const textToSVG = TextToSVG.loadSync('./WorkSans/WorkSans-Medium.ttf');
+
 class Scale extends Component {
   render() {
     const {
@@ -9,11 +11,17 @@ class Scale extends Component {
       count,
       modulo,
       style,
-      textAnchor,
+      anchor,
       label,
       fill,
-      filter
+      filter,
+      fontSize,
+      className,
+      textToSVG
     } = this.props;
+    if (!textToSVG) {
+      return null;
+    }
 
     let xPositions = Array.from({ length: count }, (_, index) => index).filter(
       item => {
@@ -33,17 +41,17 @@ class Scale extends Component {
         {xPositions.map(index => {
           let currentX = index * (distance || 1) + (x || 0);
 
-          return (
-            <text
-              style={style}
-              textAnchor={textAnchor || "middle"}
-              x={currentX}
-              y={y || 0}
-              fill={fill || "black"}
-            >
-              {label ? label(index) : index}
-            </text>
-          );
+          const options = {
+            x: currentX,
+            y: y || 0,
+            fontSize: fontSize,
+            anchor: anchor || "center baseline"
+          };
+
+          let text = label ? label(index) : index;
+          let svgD = textToSVG.getD(`${text}`, options);
+
+          return <path fill={fill || "black"} d={svgD} />;
         })}
       </Fragment>
     );
@@ -51,3 +59,15 @@ class Scale extends Component {
 }
 
 export default Scale;
+
+// <text
+//   style={style}
+//   textAnchor={textAnchor || "middle"}
+//   x={currentX}
+//   y={y || 0}
+//   fill={fill || "black"}
+//   fontSize={fontSize}
+//   className={className}
+// >
+//   {label ? label(index) : index}
+// </text>
