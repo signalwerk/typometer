@@ -1,5 +1,7 @@
 # Typometer
+A generator to produce typometers for traditional typesetting.
 
+![typometer](./typometer.png)
 
 ## Available Scripts
 
