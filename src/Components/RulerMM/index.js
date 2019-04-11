@@ -61,6 +61,7 @@ class RulerMM extends Component {
           fontSize={fontSize}
           className={"text"}
         />
+
         <Scale
           textToSVG={textToSVG}
           x={0 - Text_MM_OFFSET_X}

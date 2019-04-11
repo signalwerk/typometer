@@ -4,6 +4,8 @@ import Scale from "../Scale";
 import Circle from "../Circle";
 import Triangle from "../Triangle";
 import RulerMM from "../RulerMM";
+import RulerPt from "../RulerPt";
+import { CICERO, pt } from "../../Utility";
 
 const TextToSVG = require("text-to-svg");
 
@@ -19,15 +21,11 @@ const SCALE_MM_COUNT = 300;
 const Scale_MM_stroke_width = 0.25;
 
 // Scale pt
-const CICERO = 4.51165812456; // mm
-let pt = pt => pt * (CICERO / 12);
+// const CICERO = 4.51165812456; // mm
+// let pt = pt => pt * (CICERO / 12);
 
 const SCALE_CICERO_COUNT = 68;
 const SCALE_PT_COUNT = SCALE_CICERO_COUNT * 12;
-
-const Scale_2_PT_Height = pt(4);
-const Scale_6_PT_Height = pt(7);
-const Scale_12_PT_Height = pt(9);
 
 const RulerHeight = pt(4 * 12);
 const RulerWidth = 350;
@@ -35,7 +33,6 @@ const RulerWidth = 350;
 const ArtBleed = 0;
 const MediaBleed = 10;
 
-const Text_PT_OFFSET_Y = 5.7;
 
 const googleFonts =
   "https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700,800,900";
@@ -99,42 +96,13 @@ class Rulers extends Component {
                 fill="white"
               />
 
-              {/* 12pt */}
-              <Lines
+              <RulerPt
                 y={0 - ArtBleed}
-                distance={pt(12)}
-                count={SCALE_PT_COUNT / 12 + 1}
-                length={Scale_12_PT_Height + ArtBleed}
+                count={SCALE_PT_COUNT}
+                bleed={ArtBleed}
                 strokeWidth={Scale_MM_stroke_width}
-              />
-
-              {/* 6pt */}
-              <Lines
-                y={0 - ArtBleed}
-                distance={pt(6)}
-                count={SCALE_PT_COUNT / 6}
-                length={Scale_6_PT_Height + ArtBleed}
-                strokeWidth={Scale_MM_stroke_width}
-                modulo={[2]}
-              />
-
-              {/* 2pt */}
-              <Lines
-                y={0 - ArtBleed}
-                distance={pt(2)}
-                count={SCALE_PT_COUNT / 2}
-                length={Scale_2_PT_Height + ArtBleed}
-                strokeWidth={Scale_MM_stroke_width}
-                modulo={[3]}
-              />
-              <Scale
                 textToSVG={textToSVG}
-                y={Text_PT_OFFSET_Y}
-                distance={pt(12)}
-                count={SCALE_CICERO_COUNT + 1}
-                label={index => (index > 0 ? index : "")}
                 fontSize={style.fontSize}
-                className={"text"}
               />
 
               {/* CICERO */}
