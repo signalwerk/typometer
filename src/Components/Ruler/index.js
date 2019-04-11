@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Lines from "../Lines";
 import Scale from "../Scale";
 import Circle from "../Circle";
+import Triangle from "../Triangle";
 
 // view
 const Scaler = 10;
@@ -29,7 +30,7 @@ const Scale_12_PT_Height = pt(9);
 const RulerHeight = pt(4 * 12);
 const RulerWidth = 350;
 
-const ArtBleed = 0.5;
+const ArtBleed = 0;
 const MediaBleed = 10;
 
 const Text_PT_OFFSET_Y = 5.6;
@@ -245,6 +246,15 @@ class Ruler extends Component {
               >
                 a
               </text>
+
+              {[148, 210, 297].map(item => (
+                <Triangle
+                  direction="down"
+                  x={item}
+                  y={RulerHeight - Scale_1_MM_Height - 0.2}
+                  size={1.3}
+                />
+              ))}
             </g>
           </g>
         </svg>
