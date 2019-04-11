@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import Lines from "../Lines";
 import Scale from "../Scale";
-import Circle from "../Circle";
 import Triangle from "../Triangle";
 import RulerMM from "../RulerMM";
+import RulerCicero from "../RulerCicero";
 import RulerPt from "../RulerPt";
 import { CICERO, pt } from "../../Utility";
 
@@ -32,7 +32,6 @@ const RulerWidth = 350;
 
 const ArtBleed = 0;
 const MediaBleed = 10;
-
 
 const googleFonts =
   "https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700,800,900";
@@ -105,34 +104,6 @@ class Rulers extends Component {
                 fontSize={style.fontSize}
               />
 
-              {/* CICERO */}
-              <Lines
-                y={6.5}
-                distance={pt(12 * 4)}
-                count={SCALE_CICERO_COUNT / 4 + 1}
-                length={3}
-                filter={index => index === 0}
-                strokeWidth={Scale_MM_stroke_width}
-              />
-
-              <Circle
-                y={RulerHeight / 2}
-                distance={pt(12 * 4)}
-                count={SCALE_CICERO_COUNT / 4 + 1}
-                r={1.4}
-                strokeWidth={Scale_MM_stroke_width}
-              />
-
-              <Scale
-                textToSVG={textToSVG}
-                y={RulerHeight / 2 + 0.65}
-                distance={pt(12 * 4)}
-                count={SCALE_CICERO_COUNT / 4 + 1}
-                fill={"white"}
-                fontSize={style.fontSize * 0.75}
-                className={"text"}
-              />
-
               <RulerMM
                 y={RulerHeight + ArtBleed}
                 count={SCALE_MM_COUNT}
@@ -140,6 +111,14 @@ class Rulers extends Component {
                 strokeWidth={Scale_MM_stroke_width}
                 textToSVG={textToSVG}
                 fontSize={style.fontSize}
+              />
+
+              <RulerCicero
+                y={RulerHeight / 2}
+                count={SCALE_CICERO_COUNT / 4 + 1}
+                strokeWidth={Scale_MM_stroke_width}
+                textToSVG={textToSVG}
+                fontSize={style.fontSize * 0.75}
               />
 
               <text
