@@ -1,10 +1,7 @@
 import React, { Component, Fragment } from "react";
 import Lines from "../Lines";
 import Scale from "../Scale";
-import Circle from "../Circle";
 import Triangle from "../Triangle";
-
-const TextToSVG = require("text-to-svg");
 
 const Scale_10_MM_Height = 5;
 const Scale_5_MM_Height = 4;

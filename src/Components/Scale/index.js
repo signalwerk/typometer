@@ -10,7 +10,7 @@ class Scale extends Component {
       distance,
       count,
       modulo,
-      style,
+      // style,
       anchor,
       label,
       fill,
@@ -19,6 +19,7 @@ class Scale extends Component {
       className,
       textToSVG
     } = this.props;
+    
     if (!textToSVG) {
       return null;
     }
@@ -51,7 +52,7 @@ class Scale extends Component {
           let text = label ? label(index) : index;
           let svgD = textToSVG.getD(`${text}`, options);
 
-          return <path fill={fill || "black"} d={svgD} />;
+          return <path fill={fill || "black"} d={svgD} className={className} />;
         })}
       </Fragment>
     );

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import Lines from "../Lines";
 import Scale from "../Scale";
 import Circle from "../Circle";
-import { CICERO, pt } from "../../Utility";
+import { pt } from "../../Utility";
 
 class RulerCicero extends Component {
   render() {

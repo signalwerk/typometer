@@ -1,31 +1,20 @@
 import React, { Component } from "react";
-import Lines from "../Lines";
-import Scale from "../Scale";
-import Triangle from "../Triangle";
 import RulerMM from "../RulerMM";
 import RulerCicero from "../RulerCicero";
 import RulerPt from "../RulerPt";
-import { CICERO, pt } from "../../Utility";
-
-const TextToSVG = require("text-to-svg");
+import { pt } from "../../Utility";
 
 // view
 
-const DTP_PT = 25.4 / 72; // .352777778
+// const DTP_PT = 25.4 / 72; // .352777778
 // const Scaler = 1/DTP_PT; // export to illu
 const Scaler = 10;
 
 // Scale mm
-const SCALE_MM_COUNT = 300;
-
-const Scale_MM_stroke_width = 0.25;
 
 // Scale pt
 // const CICERO = 4.51165812456; // mm
 // let pt = pt => pt * (CICERO / 12);
-
-const SCALE_CICERO_COUNT = 68;
-const SCALE_PT_COUNT = SCALE_CICERO_COUNT * 12;
 
 const RulerHeight = pt(4 * 12);
 const RulerWidth = 350;
@@ -33,8 +22,6 @@ const RulerWidth = 350;
 const ArtBleed = 0;
 const MediaBleed = 10;
 
-const googleFonts =
-  "https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700,800,900";
 const style = {
   fontSize: pt(7),
   fontFamily: "Work Sans",
@@ -42,26 +29,24 @@ const style = {
 };
 
 class Rulers extends Component {
-  state = {
-    textToSVG: null
-  };
-  componentDidMount(props) {
-    TextToSVG.load("./WorkSans/WorkSans-Medium.ttf", (err, textToSVG) => {
-      this.setState({ textToSVG });
-    });
-  }
-
   render() {
+    const { font, pt, mm, strokeWidth } = this.props;
+    const cicero = Math.floor(pt / 12);
+    let textToSVG = font.textToSVG;
+
+    if (!textToSVG) {
+      return null;
+    }
+
     const totalWidth = RulerWidth + 2 * MediaBleed;
     const totalHeight = RulerHeight + 2 * MediaBleed;
-    let textToSVG = this.state.textToSVG;
 
     return (
       <div className="Ruler">
         <svg width={totalWidth * Scaler} height={totalHeight * Scaler}>
           <defs>
             <style type="text/css">{`
-                @import url(${googleFonts});
+                @import url(${font.url});
 
                 .text {
                   font-family: ${style.fontFamily};
@@ -87,36 +72,30 @@ class Rulers extends Component {
                 height={RulerHeight}
                 fill="gray"
               />
-              <rect
-                x="0"
-                y="0"
-                width={SCALE_MM_COUNT}
-                height={RulerHeight}
-                fill="white"
-              />
+              <rect x="0" y="0" width={mm} height={RulerHeight} fill="white" />
 
               <RulerPt
                 y={0 - ArtBleed}
-                count={SCALE_PT_COUNT}
+                count={pt}
                 bleed={ArtBleed}
-                strokeWidth={Scale_MM_stroke_width}
+                strokeWidth={strokeWidth}
                 textToSVG={textToSVG}
                 fontSize={style.fontSize}
               />
 
               <RulerMM
                 y={RulerHeight + ArtBleed}
-                count={SCALE_MM_COUNT}
+                count={mm}
                 bleed={ArtBleed}
-                strokeWidth={Scale_MM_stroke_width}
+                strokeWidth={strokeWidth}
                 textToSVG={textToSVG}
                 fontSize={style.fontSize}
               />
 
               <RulerCicero
                 y={RulerHeight / 2}
-                count={SCALE_CICERO_COUNT / 4 + 1}
-                strokeWidth={Scale_MM_stroke_width}
+                count={cicero / 4 + 1}
+                strokeWidth={strokeWidth}
                 textToSVG={textToSVG}
                 fontSize={style.fontSize * 0.75}
               />
@@ -124,21 +103,11 @@ class Rulers extends Component {
               <text
                 fontSize={style.fontSize}
                 className={"text"}
-                text-anchor="middle"
+                text-anchor="start"
                 x="10"
                 y="23"
               >
-                g
-              </text>
-
-              <text
-                fontSize={style.fontSize}
-                className={"text"}
-                text-anchor="end"
-                x="20"
-                y="23"
-              >
-                a
+                Signalwerk · Stefan Huber · Version 2019.0
               </text>
             </g>
           </g>

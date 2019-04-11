@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import Lines from "../Lines";
 import Scale from "../Scale";
-import { CICERO, pt } from "../../Utility";
+import { pt } from "../../Utility";
 
 const Scale_12_PT_Height = pt(9);
 const Scale_6_PT_Height = pt(7);
@@ -48,12 +48,11 @@ class RulerPt extends Component {
           textToSVG={textToSVG}
           y={Text_PT_OFFSET_Y}
           distance={pt(12)}
-          count={count + 1}
+          count={count / 12 + 1}
           label={index => (index > 0 ? index : "")}
           fontSize={fontSize}
           className={"text"}
         />
-
       </Fragment>
     );
   }
