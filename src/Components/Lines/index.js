@@ -32,20 +32,38 @@ class Lines extends Component {
         {xPositions.map(index => {
           let currentX = index * (distance || 1) + (x || 0);
 
+          let yStart = y || 0;
+          let yEnd = yStart + length;
+
+          if (length < 0) {
+            yStart = yStart + length;
+            yEnd = yEnd - length;
+          }
+
           return (
-            <line
-              x1={currentX}
-              y1={y || 0}
-              x2={currentX}
-              y2={(y || 0) + length}
-              stroke={stroke || "black"}
-              strokeWidth={strokeWidth}
-            />
+            <Fragment>
+              <rect
+                x={currentX - strokeWidth / 2}
+                y={yStart}
+                width={strokeWidth}
+                height={yEnd - yStart}
+                fill={stroke || "black"}
+              />
+            </Fragment>
           );
         })}
       </Fragment>
     );
   }
 }
+
+// <line
+//   x1={currentX}
+//   y1={yStart}
+//   x2={currentX}
+//   y2={yEnd}
+//   stroke={stroke || "black"}
+//   strokeWidth={strokeWidth}
+// />
 
 export default Lines;
