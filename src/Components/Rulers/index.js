@@ -3,6 +3,7 @@ import Lines from "../Lines";
 import Scale from "../Scale";
 import Circle from "../Circle";
 import Triangle from "../Triangle";
+import RulerMM from "../RulerMM";
 
 const TextToSVG = require("text-to-svg");
 
@@ -14,10 +15,6 @@ const Scaler = 10;
 
 // Scale mm
 const SCALE_MM_COUNT = 300;
-
-const Scale_1_MM_Height = 2;
-const Scale_5_MM_Height = 4;
-const Scale_10_MM_Height = 5;
 
 const Scale_MM_stroke_width = 0.25;
 
@@ -40,9 +37,6 @@ const MediaBleed = 10;
 
 const Text_PT_OFFSET_Y = 5.7;
 
-const Text_MM_OFFSET_X = -0.5;
-const Text_MM_OFFSET_Y = 3.25;
-
 const googleFonts =
   "https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700,800,900";
 const style = {
@@ -51,7 +45,7 @@ const style = {
   fontWeight: 500
 };
 
-class Ruler extends Component {
+class Rulers extends Component {
   state = {
     textToSVG: null
   };
@@ -171,60 +165,13 @@ class Ruler extends Component {
                 className={"text"}
               />
 
-              {/* 10mm */}
-              <Lines
-                y={RulerHeight + ArtBleed}
-                distance={10}
-                count={SCALE_MM_COUNT / 10 + 1}
-                length={0 - (Scale_10_MM_Height + ArtBleed)}
-                strokeWidth={Scale_MM_stroke_width}
-              />
-
-              {/* 5mm */}
-              <Lines
-                y={RulerHeight + ArtBleed}
-                distance={5}
-                count={SCALE_MM_COUNT / 5}
-                length={0 - (Scale_5_MM_Height + ArtBleed)}
-                strokeWidth={Scale_MM_stroke_width}
-                modulo={[2]}
-              />
-
-              {/* mm */}
-              <Lines
+              <RulerMM
                 y={RulerHeight + ArtBleed}
                 count={SCALE_MM_COUNT}
-                length={0 - (Scale_1_MM_Height + ArtBleed)}
+                bleed={ArtBleed}
                 strokeWidth={Scale_MM_stroke_width}
-                modulo={[5]}
-              />
-              <Scale
                 textToSVG={textToSVG}
-                x={Text_MM_OFFSET_X}
-                y={RulerHeight - Text_MM_OFFSET_Y}
-                anchor="right baseline"
-                distance={10}
-                count={SCALE_MM_COUNT / 10 + 1}
-                filter={index => index === 0}
-                label={index => {
-                  return index < 10 ? index : `${parseInt(index / 10)}`;
-                }}
                 fontSize={style.fontSize}
-                className={"text"}
-              />
-              <Scale
-                textToSVG={textToSVG}
-                x={0 - Text_MM_OFFSET_X}
-                y={RulerHeight - Text_MM_OFFSET_Y}
-                anchor="left baseline"
-                distance={10}
-                count={SCALE_MM_COUNT / 10 + 1}
-                filter={index => index === 0}
-                label={index => {
-                  return index < 10 ? "" : `${index % 10}`;
-                }}
-                fontSize={style.fontSize}
-                className={"text"}
               />
 
               <text
@@ -246,15 +193,6 @@ class Ruler extends Component {
               >
                 a
               </text>
-
-              {[148, 210, 297].map(item => (
-                <Triangle
-                  direction="down"
-                  x={item}
-                  y={RulerHeight - Scale_1_MM_Height - 0.3}
-                  size={1}
-                />
-              ))}
             </g>
           </g>
         </svg>
@@ -263,4 +201,4 @@ class Ruler extends Component {
   }
 }
 
-export default Ruler;
+export default Rulers;

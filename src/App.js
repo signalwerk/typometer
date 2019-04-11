@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Ruler from "./Components/Ruler";
+import Rulers from "./Components/Rulers";
 import "./App.css";
 
 class App extends Component {
@@ -8,7 +8,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <br />
-          <Ruler />
+          <Rulers />
         </header>
       </div>
     );
