@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import RulerMM from "../RulerMM";
 import RulerCicero from "../RulerCicero";
 import RulerPt from "../RulerPt";
-import { pt } from "../../Utility";
+import { pt as _pt } from "../../Utility";
 
 // view
 
@@ -16,14 +16,15 @@ const Scaler = 10;
 // const CICERO = 4.51165812456; // mm
 // let pt = pt => pt * (CICERO / 12);
 
-const RulerHeight = pt(4 * 12);
-const RulerWidth = 350;
+const RulerHeight = _pt(4 * 12);
+
+const holeOffset = _pt(3 * 12);
 
 const ArtBleed = 0;
 const MediaBleed = 10;
 
 const style = {
-  fontSize: pt(7),
+  fontSize: _pt(7),
   fontFamily: "Work Sans",
   fontWeight: 500
 };
@@ -37,6 +38,8 @@ class Rulers extends Component {
     if (!textToSVG) {
       return null;
     }
+
+    const RulerWidth = _pt(pt) + holeOffset + RulerHeight / 2;
 
     const totalWidth = RulerWidth + 2 * MediaBleed;
     const totalHeight = RulerHeight + 2 * MediaBleed;
@@ -72,7 +75,22 @@ class Rulers extends Component {
                 height={RulerHeight}
                 fill="gray"
               />
-              <rect x="0" y="0" width={mm} height={RulerHeight} fill="white" />
+              <rect
+                x="0"
+                y="0"
+                width={_pt(pt) + holeOffset}
+                height={RulerHeight}
+                fill="white"
+              />
+
+              <g
+                transform={`translate(${_pt(pt) + holeOffset},${RulerHeight /
+                  2})`}
+              >
+                <circle cx={0} cy={0} r={RulerHeight / 2} fill="red" />
+
+                <circle cx={0} cy={0} r={_pt(6)} fill={"yellow"} />
+              </g>
 
               <RulerPt
                 y={0 - ArtBleed}
@@ -97,7 +115,7 @@ class Rulers extends Component {
                 count={cicero / 4 + 1}
                 strokeWidth={strokeWidth}
                 textToSVG={textToSVG}
-                fontSize={style.fontSize * 0.75}
+                fontSize={style.fontSize}
               />
 
               <text
