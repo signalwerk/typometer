@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-
-import Demo from "./Demo";
+import MiniPdf from "./lib/mini-pdf/src/";
 
 // const fs = require('fs');
 //
@@ -9,12 +8,12 @@ import Demo from "./Demo";
 class Pdf extends Component {
   constructor(props) {
     super(props);
-    this.pdf = new Demo();
+    this.pdf = new MiniPdf();
   }
 
   render() {
     return (
-      <div className="App">
+      <div className="pdf">
         <pre><code>{`${this.pdf}`}</code></pre>
       </div>
     );

@@ -1,0 +1,3 @@
+[submodule "src/lib/mini-pdf"]
+	path = src/lib/mini-pdf
+	url = git@github.com:signalwerk/mini-pdf.git

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Rulers from "./Components/Rulers";
+import PdfDemo from "./pdfDemo";
 import "./App.css";
 
 const TextToSVG = require("text-to-svg");
@@ -42,13 +43,14 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <br />
           <Rulers
             mm={SCALE_MM_COUNT}
             pt={SCALE_PT_COUNT}
             font={font}
             strokeWidth={Scale_MM_stroke_width}
           />
+          <br />
+          <PdfDemo />
         </header>
       </div>
     );
