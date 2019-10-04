@@ -57,13 +57,5 @@ class Lines extends Component {
   }
 }
 
-// <line
-//   x1={currentX}
-//   y1={yStart}
-//   x2={currentX}
-//   y2={yEnd}
-//   stroke={stroke || "black"}
-//   strokeWidth={strokeWidth}
-// />
 
 export default Lines;

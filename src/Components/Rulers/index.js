@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import RulerMM from "../RulerMM";
 import RulerCicero from "../RulerCicero";
 import RulerPt from "../RulerPt";
+import SVG from "../SVG";
 import { pt as _pt } from "../../Utility";
+import { rulers } from "../../Utility/generators";
 
 // view
 
@@ -91,6 +93,8 @@ class Rulers extends Component {
 
                 <circle cx={0} cy={0} r={_pt(6)} fill={"yellow"} />
               </g>
+
+              <SVG data={rulers({ textToSVG })} />
 
               <RulerPt
                 y={0 - ArtBleed}

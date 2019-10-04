@@ -17,14 +17,6 @@ class RulerCicero extends Component {
     return (
       <Fragment>
         {/* CICERO */}
-        <Lines
-          y={6.5}
-          distance={cicero(4)}
-          count={count}
-          length={3}
-          filter={index => index === 0}
-          strokeWidth={strokeWidth}
-        />
 
         <Circle y={y} distance={cicero(4)} count={count} r={pt(4)} />
 
@@ -37,18 +29,6 @@ class RulerCicero extends Component {
           fontSize={fontSizeCircle}
           className={"text"}
         />
-
-        {/*  <Text
-          x={ cicero( 2)}
-          y={y + fontSizeCaption*.3}
-          text-anchor="middle"
-          outline={true}
-          textToSVG={textToSVG}
-          fontSize={fontSizeCaption}
-          className={"text"}
-        >
-          2019.1
-        </Text>*/}
 
         <Text
           x={cicero((count - 2) * 4 + 2)}

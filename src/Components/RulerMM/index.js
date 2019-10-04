@@ -1,14 +1,12 @@
 import React, { Component, Fragment } from "react";
-import Lines from "../Lines";
 import Scale from "../Scale";
 import Triangle from "../Triangle";
 
-const Scale_10_MM_Height = 5;
-const Scale_5_MM_Height = 4;
-const Scale_1_MM_Height = 2;
-
 const Text_MM_OFFSET_X = -0.5;
 const Text_MM_OFFSET_Y = 3.25;
+
+const Scale_1_MM_Height = 2;
+
 
 class RulerMM extends Component {
   render() {
@@ -16,33 +14,6 @@ class RulerMM extends Component {
 
     return (
       <Fragment>
-        {/* 10mm */}
-        <Lines
-          y={y}
-          distance={10}
-          count={count / 10 + 1}
-          length={0 - (Scale_10_MM_Height + bleed)}
-          strokeWidth={strokeWidth}
-        />
-
-        {/* 5mm */}
-        <Lines
-          y={y}
-          distance={5}
-          count={count / 5}
-          length={0 - (Scale_5_MM_Height + bleed)}
-          strokeWidth={strokeWidth}
-          modulo={[2]}
-        />
-
-        {/* mm */}
-        <Lines
-          y={y}
-          count={count}
-          length={0 - (Scale_1_MM_Height + bleed)}
-          strokeWidth={strokeWidth}
-          modulo={[5]}
-        />
 
         <Scale
           textToSVG={textToSVG}
