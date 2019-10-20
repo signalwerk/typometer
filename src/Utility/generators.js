@@ -1,4 +1,5 @@
 import { pt, cicero } from "../Utility";
+import { Line, Text, Circle } from "./base";
 const Scale_10_MM_Height = 5;
 const Scale_5_MM_Height = 4;
 const Scale_1_MM_Height = 2;
@@ -6,6 +7,11 @@ const Scale_1_MM_Height = 2;
 const Scale_12_PT_Height = pt(9);
 const Scale_6_PT_Height = pt(7);
 const Scale_2_PT_Height = pt(4);
+
+const Text_PT_OFFSET_Y = 2.3;
+
+const Text_MM_OFFSET_X = -0.55;
+const Text_MM_OFFSET_Y = 1.7;
 
 const ArtBleed = 0;
 
@@ -49,6 +55,16 @@ export function rulers({ textToSVG }) {
       strokeWidth: Scale_stroke_width,
       textToSVG: textToSVG,
       fontSize: style.fontSize
+    }),
+
+    Text({
+      x: 10,
+      y: 23,
+      fill: "red",
+      fontSize: style.fontSize,
+      fontFamily: style.fontFamily,
+      textAnchor: "start",
+      text: "Signalwerk · Stefan Huber · Version 2019.0"
     })
   ];
 }
@@ -56,15 +72,30 @@ export function rulers({ textToSVG }) {
 // generate the pt ruler
 export function rulerPt({ y, count, bleed, strokeWidth, textToSVG, fontSize }) {
   // 12pt
-  let scale12pt = lines({
+  let scale12pt = scale({
     y: y,
     distance: pt(12),
     count: count / 12 + 1,
     length: Scale_12_PT_Height + bleed,
-    strokeWidth: strokeWidth
+    strokeWidth: strokeWidth,
+    label: ({ x1, y1, x2, y2, index }) => {
+      if (index === 0) {
+        return false;
+      }
+      return [
+        Text({
+          x: x2,
+          y: y2 + Text_PT_OFFSET_Y,
+          text: index,
+          fill: "red",
+          fontSize: style.fontSize,
+          textAnchor: "center baseline"
+        })
+      ];
+    }
   });
   // 6pt
-  let scale6pt = lines({
+  let scale6pt = scale({
     y: y,
     distance: pt(6),
     count: count / 6,
@@ -73,7 +104,7 @@ export function rulerPt({ y, count, bleed, strokeWidth, textToSVG, fontSize }) {
     modulo: [2]
   });
   // 2pt
-  let scale2pt = lines({
+  let scale2pt = scale({
     y: y,
     distance: pt(2),
     count: count / 2,
@@ -88,13 +119,34 @@ export function rulerPt({ y, count, bleed, strokeWidth, textToSVG, fontSize }) {
 
 // generate the cicero ruler
 export function rulerCicero({ y, count, strokeWidth, textToSVG, fontSize }) {
-  let scale1cicero = lines({
-    y: 6.5,
+  let fontSizeCircle = style.fontSize * 0.75;
+
+  let scale1cicero = scale({
+    y: y,
     distance: cicero(4),
     count: count,
-    length: 3,
+    length: -2.8,
     filter: index => index === 0,
-    strokeWidth: strokeWidth
+    strokeWidth: strokeWidth,
+    label: ({ x1, y1, y2, index }) => {
+      return [
+        Circle({
+          cx: x1,
+          cy: y2,
+          fill: "red",
+          r: pt(4)
+        }),
+
+        Text({
+          x: x1,
+          y: y2 + 0.6,
+          text: index,
+          fill: "blue",
+          fontSize: fontSizeCircle,
+          textAnchor: "center baseline"
+        })
+      ];
+    }
   });
   let data = [...scale1cicero];
   return data;
@@ -103,16 +155,37 @@ export function rulerCicero({ y, count, strokeWidth, textToSVG, fontSize }) {
 // generate the mm ruler
 export function rulerMM({ y, count, bleed, strokeWidth, textToSVG, fontSize }) {
   // 10mm
-  let scale10mm = lines({
+  let scale10mm = scale({
     y,
     distance: 10,
     count: count / 10 + 1,
     length: 0 - (Scale_10_MM_Height + bleed),
-    strokeWidth
+    strokeWidth,
+    label: ({ x1, y1, index }) => {
+      return [
+        Text({
+          x: x1 + Text_MM_OFFSET_X,
+          y: y1 + Text_MM_OFFSET_Y,
+          text: index < 10 ? index : `${parseInt(index / 10)}`,
+          fill: "green",
+          fontSize: style.fontSize,
+          textAnchor: "right baseline"
+        }),
+
+        Text({
+          x: x1 - Text_MM_OFFSET_X,
+          y: y1 + Text_MM_OFFSET_Y,
+          text: index < 10 ? "" : `${index % 10}`,
+          fill: "green",
+          fontSize: style.fontSize,
+          textAnchor: "left baseline"
+        })
+      ];
+    }
   });
 
   // 5mm
-  let scale5mm = lines({
+  let scale5mm = scale({
     y,
     distance: 5,
     count: count / 5,
@@ -122,7 +195,7 @@ export function rulerMM({ y, count, bleed, strokeWidth, textToSVG, fontSize }) {
   });
 
   // 1mm
-  let scale1mm = lines({
+  let scale1mm = scale({
     y,
     count: count,
     length: 0 - (Scale_1_MM_Height + bleed),
@@ -135,10 +208,11 @@ export function rulerMM({ y, count, bleed, strokeWidth, textToSVG, fontSize }) {
 }
 
 // generate repeating lines
-export function lines({
+export function scale({
   x,
   y,
   count,
+  label,
   length,
   distance,
   stroke,
@@ -173,27 +247,27 @@ export function lines({
     }
 
     lineList.push(
-      {
-        type: "line",
-        attributes: {
-          x1: currentX,
-          y1: yStart,
-          x2: currentX,
-          y2: yEnd,
-          stroke: stroke || "black",
-          strokeWidth: strokeWidth || 1
-        }
-      }
-      // <Fragment>
-      //   <rect
-      //     x={currentX - strokeWidth / 2}
-      //     y={yStart}
-      //     width={strokeWidth}
-      //     height={yEnd - yStart}
-      //     fill={stroke || "black"}
-      //   />
-      // </Fragment>
+      Line({
+        x1: currentX,
+        y1: yStart,
+        x2: currentX,
+        y2: yEnd,
+        stroke: stroke,
+        strokeWidth: strokeWidth
+      })
     );
+    if (label) {
+      let labelProps = label({
+        x1: currentX,
+        y1: yStart,
+        x2: currentX,
+        y2: yEnd,
+        index
+      });
+      if (labelProps) {
+        lineList.push(...labelProps);
+      }
+    }
   });
 
   return lineList;

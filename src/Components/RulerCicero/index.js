@@ -1,6 +1,4 @@
 import React, { Component, Fragment } from "react";
-import Lines from "../Lines";
-import Scale from "../Scale";
 import Circle from "../Circle";
 import Text from "../Text";
 import { pt, cicero } from "../../Utility";
@@ -18,17 +16,7 @@ class RulerCicero extends Component {
       <Fragment>
         {/* CICERO */}
 
-        <Circle y={y} distance={cicero(4)} count={count} r={pt(4)} />
 
-        <Scale
-          textToSVG={textToSVG}
-          y={y + 0.65}
-          distance={cicero(4)}
-          count={count}
-          fill={"white"}
-          fontSize={fontSizeCircle}
-          className={"text"}
-        />
 
         <Text
           x={cicero((count - 2) * 4 + 2)}

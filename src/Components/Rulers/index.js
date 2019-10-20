@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import RulerMM from "../RulerMM";
+import Triangle from "../Triangle";
 import RulerCicero from "../RulerCicero";
-import RulerPt from "../RulerPt";
+
 import SVG from "../SVG";
 import { pt as _pt } from "../../Utility";
 import { rulers } from "../../Utility/generators";
@@ -94,26 +94,6 @@ class Rulers extends Component {
                 <circle cx={0} cy={0} r={_pt(6)} fill={"yellow"} />
               </g>
 
-              <SVG data={rulers({ textToSVG })} />
-
-              <RulerPt
-                y={0 - ArtBleed}
-                count={pt}
-                bleed={ArtBleed}
-                strokeWidth={strokeWidth}
-                textToSVG={textToSVG}
-                fontSize={style.fontSize}
-              />
-
-              <RulerMM
-                y={RulerHeight + ArtBleed}
-                count={mm}
-                bleed={ArtBleed}
-                strokeWidth={strokeWidth}
-                textToSVG={textToSVG}
-                fontSize={style.fontSize}
-              />
-
               <RulerCicero
                 y={RulerHeight / 2}
                 count={cicero / 4 + 1}
@@ -122,15 +102,16 @@ class Rulers extends Component {
                 fontSize={style.fontSize}
               />
 
-              <text
-                fontSize={style.fontSize}
-                className={"text"}
-                text-anchor="start"
-                x="10"
-                y="23"
-              >
-                Signalwerk · Stefan Huber · Version 2019.0
-              </text>
+              <SVG data={rulers({ textToSVG })} />
+
+              {[148, 210, 297].map(item => (
+                <Triangle
+                  y={RulerHeight - 2 - 0.3}
+                  x={item}
+                  direction="down"
+                  size={1}
+                />
+              ))}
             </g>
           </g>
         </svg>

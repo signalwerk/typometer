@@ -19,7 +19,7 @@ class Scale extends Component {
       className,
       textToSVG
     } = this.props;
-    
+
     if (!textToSVG) {
       return null;
     }
@@ -60,15 +60,3 @@ class Scale extends Component {
 }
 
 export default Scale;
-
-// <text
-//   style={style}
-//   textAnchor={textAnchor || "middle"}
-//   x={currentX}
-//   y={y || 0}
-//   fill={fill || "black"}
-//   fontSize={fontSize}
-//   className={className}
-// >
-//   {label ? label(index) : index}
-// </text>
