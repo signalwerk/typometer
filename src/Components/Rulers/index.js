@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Triangle from "../Triangle";
 
 import SVG from "../SVG";
 import { pt as _pt } from "../../Utility";

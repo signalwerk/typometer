@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import MiniPdf from "./lib/mini-pdf/src/";
+import MiniPdf from "mini-pdf";
 
 // const fs = require('fs');
 //

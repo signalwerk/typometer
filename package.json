@@ -8,7 +8,9 @@
     "react-dom": "^16.8.6",
     "react-scripts": "2.1.8",
     "text-to-svg": "^3.1.5",
-    "transformation-matrix": "^2.1.0"
+    "transformation-matrix": "^2.1.0",
+    "mini-pdf": "file:modules/mini-pdf",
+    "paramatters.lib": "file:modules/paramatters.lib"
   },
   "scripts": {
     "start": "react-scripts start",
