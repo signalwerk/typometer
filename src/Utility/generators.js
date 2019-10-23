@@ -1,5 +1,8 @@
 import { pt, cicero } from "../Utility";
-import { Line, Text, Circle } from "./base";
+import { Line, Text, Circle, Polygon } from "./base";
+import { Group, Scale, Rotate, Translate } from "./group";
+import { triangle } from "./Triangle/utils";
+
 const Scale_10_MM_Height = 5;
 const Scale_5_MM_Height = 4;
 const Scale_1_MM_Height = 2;
@@ -27,6 +30,11 @@ const style = {
   fontFamily: "Work Sans",
   fontWeight: 500
 };
+
+const VERSION = "2019.2";
+
+const fontSizeCaption = style.fontSize * 0.5;
+let fontSizeCircle = style.fontSize * 0.75;
 
 export function rulers({ textToSVG }) {
   return [
@@ -57,6 +65,45 @@ export function rulers({ textToSVG }) {
       fontSize: style.fontSize
     }),
 
+    ...[148, 210, 297].map(item => {
+      let points = triangle({
+        y: RulerHeight - 2 - 0.3,
+        x: item,
+        direction: "down",
+        size: 1
+      });
+      return Polygon({
+        points,
+        fill: "red"
+      });
+    }),
+
+    Group({
+      transformations: [
+        Translate(cicero(SCALE_CICERO_COUNT + 1.5), RulerHeight / 2),
+        Rotate(-90, 0, 0)
+      ],
+      children: [
+        Text({
+          x: 0,
+          y: 0,
+          text: "signalwerk.ch",
+          fill: "cyan",
+          fontSize: fontSizeCircle,
+          textAnchor: "center"
+        })
+      ]
+    }),
+
+    Text({
+      x: cicero(SCALE_CICERO_COUNT - 2),
+      y: RulerHeight / 2 + fontSizeCaption * 0.3,
+      text: `${VERSION}`,
+      fill: "pink",
+      fontSize: fontSizeCaption,
+      textAnchor: "center"
+    }),
+
     Text({
       x: 10,
       y: 23,
@@ -64,7 +111,7 @@ export function rulers({ textToSVG }) {
       fontSize: style.fontSize,
       fontFamily: style.fontFamily,
       textAnchor: "start",
-      text: "Signalwerk · Stefan Huber · Version 2019.0"
+      text: `Signalwerk · Stefan Huber · Version ${VERSION}`
     })
   ];
 }
@@ -119,8 +166,6 @@ export function rulerPt({ y, count, bleed, strokeWidth, textToSVG, fontSize }) {
 
 // generate the cicero ruler
 export function rulerCicero({ y, count, strokeWidth, textToSVG, fontSize }) {
-  let fontSizeCircle = style.fontSize * 0.75;
-
   let scale1cicero = scale({
     y: y,
     distance: cicero(4),

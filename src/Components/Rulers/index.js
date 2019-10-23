@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Triangle from "../Triangle";
-import RulerCicero from "../RulerCicero";
 
 import SVG from "../SVG";
 import { pt as _pt } from "../../Utility";
@@ -94,24 +93,7 @@ class Rulers extends Component {
                 <circle cx={0} cy={0} r={_pt(6)} fill={"yellow"} />
               </g>
 
-              <RulerCicero
-                y={RulerHeight / 2}
-                count={cicero / 4 + 1}
-                strokeWidth={strokeWidth}
-                textToSVG={textToSVG}
-                fontSize={style.fontSize}
-              />
-
               <SVG data={rulers({ textToSVG })} />
-
-              {[148, 210, 297].map(item => (
-                <Triangle
-                  y={RulerHeight - 2 - 0.3}
-                  x={item}
-                  direction="down"
-                  size={1}
-                />
-              ))}
             </g>
           </g>
         </svg>

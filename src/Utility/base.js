@@ -1,3 +1,19 @@
+let graphicState = ({ stroke, strokeWidth, fill }) => ({
+  stroke: stroke || "none",
+  strokeWidth: strokeWidth || 0,
+  fill: fill || "black"
+});
+
+export const Polygon = ({ points, stroke, strokeWidth, fill }) => {
+  return {
+    type: "polygon",
+    attributes: {
+      points: points || [],
+      ...graphicState({ stroke, strokeWidth, fill })
+    }
+  };
+};
+
 export const Line = ({ x1, y1, x2, y2, stroke, strokeWidth }) => {
   return {
     type: "line",
