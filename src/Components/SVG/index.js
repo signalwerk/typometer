@@ -6,11 +6,12 @@ const localFont = "./WorkSans/WorkSans-Medium.ttf";
 let Render = ({ data }) => {
   const [fontRenderer, setFontRenderer] = useState(false);
 
-  useEffect(() => {
-    TextToSVG.load(localFont, (err, textToSVG) => {
-      setFontRenderer(textToSVG);
-    });
-  });
+  // useEffect(() => {
+  //   TextToSVG.load(localFont, (err, textToSVG) => {
+  //     setFontRenderer(textToSVG);
+  //   });
+  // });
+  console.log("Render")
 
     return (
       <Fragment>

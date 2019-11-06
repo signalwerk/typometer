@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import SVG from "../SVG";
 import { pt as _pt } from "../../Utility";
 import { rulers } from "../../Utility/generators";
+const TextToSVG = require("text-to-svg");
 
 // view
 
@@ -29,10 +30,41 @@ const style = {
   fontWeight: 500
 };
 
+
+
+let SCALE_MM_COUNT = 300;
+let SCALE_PT_COUNT = 68 * 12;
+
+
+
+const urlFonts =
+  "https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700,800,900";
+const localFont = "./WorkSans/WorkSans-Medium.ttf";
+
+
 class Rulers extends Component {
+  state = {
+    font: {
+      url: urlFonts,
+      textToSVG: null
+    }
+  };
+
+  componentDidMount(props) {
+    TextToSVG.load(localFont, (err, textToSVG) => {
+      this.setState({
+        ...this.state,
+        font: {
+          ...this.state.font,
+          textToSVG
+        }
+      });
+    });
+  }
+
   render() {
-    const { font, pt, mm, strokeWidth } = this.props;
-    const cicero = Math.floor(pt / 12);
+    const pt = SCALE_PT_COUNT;
+    let { font } = this.state;
     let textToSVG = font.textToSVG;
 
     if (!textToSVG) {
