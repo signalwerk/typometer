@@ -30,17 +30,12 @@ const style = {
   fontWeight: 500
 };
 
-
-
 let SCALE_MM_COUNT = 300;
 let SCALE_PT_COUNT = 68 * 12;
-
-
 
 const urlFonts =
   "https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700,800,900";
 const localFont = "./WorkSans/WorkSans-Medium.ttf";
-
 
 class Rulers extends Component {
   state = {
