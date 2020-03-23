@@ -3,4 +3,4 @@
 	url = https://github.com/signalwerk/paramatters.lib.git
 [submodule "modules/mini-pdf"]
 	path = src/modules/mini-pdf
-	url = git@github.com:signalwerk/mini-pdf.git
+	url = https://github.com/signalwerk/mini-pdf.git
