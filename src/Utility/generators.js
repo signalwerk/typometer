@@ -71,7 +71,7 @@ export function rulers() {
       });
       return Polygon({
         points,
-        fill: "red"
+        fill: "black"
       });
     }),
 
@@ -85,7 +85,7 @@ export function rulers() {
           x: 0,
           y: 0,
           text: "signalwerk.ch",
-          fill: "cyan",
+          fill: "black",
           fontSize: fontSizeCircle,
           textAnchor: "center"
         })
@@ -96,7 +96,7 @@ export function rulers() {
       x: cicero(SCALE_CICERO_COUNT - 2),
       y: RulerHeight / 2 + fontSizeCaption * 0.3,
       text: `${VERSION}`,
-      fill: "pink",
+      fill: "black",
       fontSize: fontSizeCaption,
       textAnchor: "center"
     }),
@@ -104,7 +104,7 @@ export function rulers() {
     Text({
       x: 10,
       y: 23,
-      fill: "red",
+      fill: "black",
       fontSize: style.fontSize,
       fontFamily: style.fontFamily,
       textAnchor: "start",
@@ -131,7 +131,7 @@ export function rulerPt({ y, count, bleed, strokeWidth, fontSize }) {
           x: x2,
           y: y2 + Text_PT_OFFSET_Y,
           text: index,
-          fill: "red",
+          fill: "black",
           fontSize: style.fontSize,
           textAnchor: "center baseline"
         })
@@ -175,7 +175,7 @@ export function rulerCicero({ y, count, strokeWidth, fontSize }) {
         Circle({
           cx: x1,
           cy: y2,
-          fill: "red",
+          fill: "black",
           r: pt(4)
         }),
 
@@ -183,7 +183,7 @@ export function rulerCicero({ y, count, strokeWidth, fontSize }) {
           x: x1,
           y: y2 + 0.6,
           text: index,
-          fill: "blue",
+          fill: "white",
           fontSize: fontSizeCircle,
           textAnchor: "center baseline"
         })
@@ -209,7 +209,7 @@ export function rulerMM({ y, count, bleed, strokeWidth, fontSize }) {
           x: x1 + Text_MM_OFFSET_X,
           y: y1 + Text_MM_OFFSET_Y,
           text: index < 10 ? index : `${parseInt(index / 10)}`,
-          fill: "green",
+          fill: "black",
           fontSize: style.fontSize,
           textAnchor: "right baseline"
         }),
@@ -218,7 +218,7 @@ export function rulerMM({ y, count, bleed, strokeWidth, fontSize }) {
           x: x1 - Text_MM_OFFSET_X,
           y: y1 + Text_MM_OFFSET_Y,
           text: index < 10 ? "" : `${index % 10}`,
-          fill: "green",
+          fill: "black",
           fontSize: style.fontSize,
           textAnchor: "left baseline"
         })

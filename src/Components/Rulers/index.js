@@ -79,7 +79,7 @@ class Rulers extends Component {
                 y="0"
                 width={RulerWidth}
                 height={RulerHeight}
-                fill="gray"
+                fill="yellow"
               />
               <rect
                 x="0"
@@ -93,7 +93,7 @@ class Rulers extends Component {
                 transform={`translate(${_pt(pt) + holeOffset},${RulerHeight /
                   2})`}
               >
-                <circle cx={0} cy={0} r={RulerHeight / 2} fill="red" />
+                <circle cx={0} cy={0} r={RulerHeight / 2} fill="white" />
 
                 <circle cx={0} cy={0} r={_pt(6)} fill={"yellow"} />
               </g>
