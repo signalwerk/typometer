@@ -1,6 +1,6 @@
 import { pt, cicero } from "../Utility";
 import { Line, Text, Circle, Polygon } from "./base";
-import { Group, Scale, Rotate, Translate } from "./group";
+import { Group, Rotate, Translate } from "./group";
 import { triangle } from "./Triangle/utils";
 
 const Scale_10_MM_Height = 5;

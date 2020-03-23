@@ -23,7 +23,7 @@ const RulerHeight = _pt(4 * 12);
 
 const holeOffset = _pt(3 * 12);
 
-const ArtBleed = 0;
+// const ArtBleed = 0;
 const MediaBleed = 10;
 
 const style = {
@@ -32,23 +32,18 @@ const style = {
   fontWeight: 500
 };
 
-let SCALE_MM_COUNT = 300;
 let SCALE_PT_COUNT = 68 * 12;
 
-const urlFonts =
-  "https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700,800,900";
-const localFont = "./WorkSans/WorkSans-Medium.ttf";
 
 class Rulers extends Component {
-  state = {
-    font: {
-      url: urlFonts
-    }
-  };
+  // state = {
+  //   font: {
+  //     url: urlFonts
+  //   }
+  // };
 
   render() {
     const pt = SCALE_PT_COUNT;
-    let { font } = this.state;
 
     const RulerWidth = _pt(pt) + holeOffset + RulerHeight / 2;
 
@@ -60,7 +55,7 @@ class Rulers extends Component {
         <svg width={totalWidth * Scaler} height={totalHeight * Scaler}>
           <defs>
             <style type="text/css">{`
-                @import url(${font.url});
+                @import url(https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700,800,900);
 
                 .text {
                   font-family: ${style.fontFamily};
