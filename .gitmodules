@@ -1,6 +1,6 @@
 [submodule "modules/paramatters.lib"]
-	path = modules/paramatters.lib
+	path = src/modules/paramatters.lib
 	url = https://github.com/signalwerk/paramatters.lib.git
 [submodule "modules/mini-pdf"]
-	path = modules/mini-pdf
+	path = src/modules/mini-pdf
 	url = git@github.com:signalwerk/mini-pdf.git

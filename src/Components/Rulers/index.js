@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 
-import SVG from "../SVG";
+// import SVG from "../SVG";
+import SVG from "../../modules/paramatters.lib/src/SVG";
+
+
 import { pt as _pt } from "../../Utility";
 import { rulers } from "../../Utility/generators";
-const TextToSVG = require("text-to-svg");
+import base64Font from "./WorkSans/js/WorkSans-Medium.js";
 
 // view
 
@@ -40,31 +43,13 @@ const localFont = "./WorkSans/WorkSans-Medium.ttf";
 class Rulers extends Component {
   state = {
     font: {
-      url: urlFonts,
-      textToSVG: null
+      url: urlFonts
     }
   };
-
-  componentDidMount(props) {
-    TextToSVG.load(localFont, (err, textToSVG) => {
-      this.setState({
-        ...this.state,
-        font: {
-          ...this.state.font,
-          textToSVG
-        }
-      });
-    });
-  }
 
   render() {
     const pt = SCALE_PT_COUNT;
     let { font } = this.state;
-    let textToSVG = font.textToSVG;
-
-    if (!textToSVG) {
-      return null;
-    }
 
     const RulerWidth = _pt(pt) + holeOffset + RulerHeight / 2;
 
@@ -119,7 +104,7 @@ class Rulers extends Component {
                 <circle cx={0} cy={0} r={_pt(6)} fill={"yellow"} />
               </g>
 
-              <SVG data={rulers({ textToSVG })} />
+              <SVG data={rulers()} fonts={{ "WorkSans-Medium": base64Font }} />
             </g>
           </g>
         </svg>

@@ -4,13 +4,14 @@
   "private": true,
   "dependencies": {
     "immutable": "^4.0.0-rc.12",
+    "mini-pdf": "file:src/modules/mini-pdf",
+    "opentype.js": "^1.1.0",
+    "paramatters.lib": "file:src/modules/paramatters.lib",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "2.1.8",
     "text-to-svg": "^3.1.5",
-    "transformation-matrix": "^2.1.0",
-    "mini-pdf": "file:modules/mini-pdf",
-    "paramatters.lib": "file:modules/paramatters.lib"
+    "transformation-matrix": "^2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -36,14 +36,13 @@ const VERSION = "2019.2";
 const fontSizeCaption = style.fontSize * 0.5;
 let fontSizeCircle = style.fontSize * 0.75;
 
-export function rulers({ textToSVG }) {
+export function rulers() {
   return [
     ...rulerPt({
       y: 0 - ArtBleed,
       count: SCALE_PT_COUNT,
       bleed: ArtBleed,
       strokeWidth: Scale_stroke_width,
-      textToSVG: textToSVG,
       fontSize: style.fontSize
     }),
 
@@ -52,7 +51,6 @@ export function rulers({ textToSVG }) {
       count: SCALE_MM_COUNT,
       bleed: ArtBleed,
       strokeWidth: Scale_stroke_width,
-      textToSVG: textToSVG,
       fontSize: style.fontSize
     }),
 
@@ -61,7 +59,6 @@ export function rulers({ textToSVG }) {
       count: SCALE_CICERO_COUNT / 4 + 1,
       bleed: ArtBleed,
       strokeWidth: Scale_stroke_width,
-      textToSVG: textToSVG,
       fontSize: style.fontSize
     }),
 
@@ -117,7 +114,7 @@ export function rulers({ textToSVG }) {
 }
 
 // generate the pt ruler
-export function rulerPt({ y, count, bleed, strokeWidth, textToSVG, fontSize }) {
+export function rulerPt({ y, count, bleed, strokeWidth, fontSize }) {
   // 12pt
   let scale12pt = scale({
     y: y,
@@ -165,7 +162,7 @@ export function rulerPt({ y, count, bleed, strokeWidth, textToSVG, fontSize }) {
 }
 
 // generate the cicero ruler
-export function rulerCicero({ y, count, strokeWidth, textToSVG, fontSize }) {
+export function rulerCicero({ y, count, strokeWidth, fontSize }) {
   let scale1cicero = scale({
     y: y,
     distance: cicero(4),
@@ -198,7 +195,7 @@ export function rulerCicero({ y, count, strokeWidth, textToSVG, fontSize }) {
 }
 
 // generate the mm ruler
-export function rulerMM({ y, count, bleed, strokeWidth, textToSVG, fontSize }) {
+export function rulerMM({ y, count, bleed, strokeWidth, fontSize }) {
   // 10mm
   let scale10mm = scale({
     y,
