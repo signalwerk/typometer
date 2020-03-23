@@ -19,7 +19,7 @@ const getDiff = direction => {
   if (direction === "up") return (Math.PI / 2) * 3;
 };
 
-export const triangle = ({direction, x, y, size}) => {
+export const triangle = ({ direction, x, y, size }) => {
   console.log("triangle", { direction, x, y, size });
   const r = (size * Math.sqrt(3)) / 3;
   const diff = getDiff(direction);

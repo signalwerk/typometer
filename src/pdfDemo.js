@@ -14,7 +14,9 @@ class Pdf extends Component {
   render() {
     return (
       <div className="pdf">
-        <pre><code>{`${this.pdf}`}</code></pre>
+        <pre>
+          <code>{`${this.pdf}`}</code>
+        </pre>
       </div>
     );
   }

@@ -3,7 +3,6 @@ import React, { Component } from "react";
 // import SVG from "../SVG";
 import SVG from "../../modules/paramatters.lib/src/SVG";
 
-
 import { pt as _pt } from "../../Utility";
 import { rulers } from "../../Utility/generators";
 import base64Font from "./WorkSans/js/WorkSans-Medium.js";
