@@ -9,7 +9,7 @@
     "paramatters.lib": "file:src/modules/paramatters.lib",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "2.1.8",
+    "react-scripts": "5.0.1",
     "text-to-svg": "^3.1.5",
     "transformation-matrix": "^2.1.0"
   },
